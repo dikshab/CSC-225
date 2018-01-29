@@ -3,10 +3,13 @@ import java.util.Scanner;
 import java.io.File;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class Stock{
 
 	public static int[] CalculateSpan(int[] p){
+		
+		Stack<Integer> s = new Stack<Integer>();
 		
 		if(p.length == 1)
 			return 1;
@@ -18,10 +21,15 @@ public class Stock{
 				for(int j = 0; j<=i; j++){
 					while(val >= p[j])
 						counter1++;
-					//continue from here for finding the minimum counter
-					
+					s.push(counter1);
 					while(val >= p[j+1])
-						
+						counter2++;
+					s.push(counter2);	
+				}
+				if(counter1 < counter2){
+					s.pop();
+					counter1 = 0;
+					counter2 = 0;
 				}
 			}
 		}
