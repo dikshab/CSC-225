@@ -10,31 +10,22 @@ public class Stock{
 	public static int[] CalculateSpan(int[] p){
 		
 		Stack<Integer> s = new Stack<Integer>();
-		
-		if(p.length == 1)
-			return 1;
-		else{
-			int counter1 = 0;
-			int counter2 = 0;
-			for(int i = 0; i < p.length; i++){
-				int val = p[i];
-				for(int j = 0; j<=i; j++){
-					while(val >= p[j])
-						counter1++;
-					s.push(counter1);
-					while(val >= p[j+1])
-						counter2++;
-					s.push(counter2);	
-				}
-				if(counter1 < counter2){
-					s.pop();
-					counter1 = 0;
-					counter2 = 0;
-				}
-			}
+		s.push(0);
+		int n = p.length;
+		int[] span = new int[n];
+		span[0] = 1;
+		for(int i = 1; i < p.length; i++){
+				
+			while(!s.empty() && p[s.peek()] <= p[i])
+				s.pop();
+			
+			span[i] = (s.empty()) ? (i+1) : (i - s.peek());
+			
+			s.push(i);
 		}
 		
-		return null;
+		
+		return span;
 	}
 	public static int[] readInput(Scanner s){
 		Queue<Integer> q = new LinkedList<Integer>();
