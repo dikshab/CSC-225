@@ -1,4 +1,4 @@
-/* Recursions.java
+/* Recursions_soln.java
    CSC 225 - Spring 2017
    
    Template for a set of recursive functions on linked lists of integers.
@@ -14,33 +14,63 @@ import java.util.Arrays;
 import java.io.File;
 
 
-public class Recursions{
+public class Recursions_soln{
         
         /* Sum(head)
            Return the sum of all elements in the linked list starting at the
            provided node.
         */
         public int Sum(ListNode head){
-            /* Your code here */
-            return 0;
+            if (head == null)
+            	return 0;
+            return head.value + Sum(head.next);
         }
+        
         /* FindMax(head)
            Return the maximum of all elements in the linked list starting at the
            provided node.
         */
         public int FindMax(ListNode head){
-            /* Your code here */
-            return 0;
+            if (head == null)
+            	return 0;
+            return Math.max(head.value,FindMax(head.next));
         }
-
+        
         /* JoinLists(h1, h2)
            Given two linked lists of integers, create a list consisting of the 
            first list followed by the second list.
         */
         public ListNode JoinLists(ListNode h1, ListNode h2){
-            /* Your code here */
-            return null;
+            if (h1 == null) {
+              return h2;
+            }
+
+            ListNode c = new ListNode(h1.value, JoinLists(h1.next, h2));
+            return c;
         }
+        
+        
+        /* ExtractEvenNodes(head)
+           Given a linked list of integers (starting at the provided node),
+           construct a new list containing the even numbers in the input
+           list.
+           
+           For example, if the input list is [3, 4, 6, 7, 8, 9, 11], the
+           result should be [4, 6, 8].
+        */
+        public ListNode ExtractEven(ListNode head){
+        	if (head == null) {
+			     return null;
+		      }
+
+      		if (head.value % 2 != 0) {
+      			return ExtractEven(head.next);
+      		} else {
+      			ListNode c = new ListNode(head.value, ExtractEven(head.next));
+      			return c;
+      		}
+        }
+        
         
         /* ValuePlusIndex(index, head)
            Given a starting index and the first node of a linked list, create a
@@ -56,22 +86,20 @@ public class Recursions{
            be [4, 6, 8].
         */
         public ListNode ValuePlusIndex(int index, ListNode head){
-            /* Your code here */
-            return null;
+        	if (head == null){
+			       return null;
+		      }
+          ListNode d = new ListNode(head.value + index, ValuePlusIndex(index+1,head.next));
+		      return d;
         }
         
-        /* ExtractEvenNodes(head)
-           Given a linked list of integers (starting at the provided node),
-           construct a new list containing the even numbers in the input
-           list.
-           
-           For example, if the input list is [3, 4, 6, 7, 8, 9, 11], the
-           result should be [4, 6, 8].
-        */
-        public ListNode ExtractEven(ListNode head){
-            /* Your code here */
-            return null;
-        }
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -154,7 +182,7 @@ public class Recursions{
         public static void main(String[] args){
                 Scanner s;
                 
-                Recursions m = new Recursions();
+                Recursions_soln m = new Recursions_soln();
                 
                 if (args.length > 0){
                         try{
@@ -178,7 +206,7 @@ public class Recursions{
                 m.printList(inputListHead);
                 
                 System.out.println("The sum of all elements in the list: " + m.Sum(inputListHead));
-                
+                System.out.println("The maximum of all elements in the list: " + m.FindMax(inputListHead));
                 System.out.printf("Enter a second list of non-negative integers. Enter a negative value to end the list.\n");
                 ListNode secondInputListHead = m.readInput(s);
                 ListNode joinedListHead = m.JoinLists(inputListHead, secondInputListHead);
