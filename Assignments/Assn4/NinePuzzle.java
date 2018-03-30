@@ -48,14 +48,27 @@ public class NinePuzzle{
 		If the board is solvable, a sequence of moves which solves the board
 		will be printed, using the printBoard function below.
 	*/
+	public static int InvCount(int[] arr){
+		
+		int count = 0;
+		for(int i = 0; i<8; i++){
+			for(int j = i+1; j<9; j++)
+				if(arr[j]!=0 && arr[i]!=0 && arr[i] > arr[j])
+					count++;
+		}
+		return count;
+	}
 	public static boolean SolveNinePuzzle(int[][] B){
 		
 		/* ... Your code here ... */
+		int counter = InvCount((int) B);
+		if(counter % 2 == 0)
+			
+			printBoard(B);
 		
-		return false;
+		return(counter%2 == 0);
 		
 	}
-	
 	/*  printBoard(B)
 		Print the given 9-puzzle board. The SolveNinePuzzle method above should
 		use this method when printing the sequence of moves which solves the input
